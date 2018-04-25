@@ -12,7 +12,6 @@ deviceList = systemGroups.groups
 #set ntp server list class to variable
 ntpServerList = ntpServers.servers
 
-print(str(deviceList))
 
 #set deviceGroup choice from sys argument and check to make sure it is valid in the class file
 try:
@@ -34,8 +33,6 @@ for server in ntpServerList:
     ntpMatch += "ntp server " + server + "\n"
 
 
-print(ntpMatch)
-
 #Get user credentials to initial SSH session
 credUser = input("Please enter username: ")
 credPass = getpass.getpass("Please enter password: ")
@@ -44,9 +41,7 @@ credPass = getpass.getpass("Please enter password: ")
 
 for deviceName, deviceIP in deviceList[deviceGroup].items():
     net_connect = ConnectHandler(device_type='arista_eos',ip=deviceIP,username=credUser,password=credPass)
-    print(net_connect.find_prompt())
     net_connect.enable()
-    print(net_connect.find_prompt())
     checkNTP = net_connect.send_command("show run | section ntp server")
 
 
