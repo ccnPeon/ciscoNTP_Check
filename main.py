@@ -32,6 +32,9 @@ ntpMatch = ''''''
 for server in ntpServerList:
     ntpMatch += "ntp server " + server + "\n"
 
+#Remove empty line from ntpMatch
+ntpMatch = ntpMatch[:-1]
+
 
 #Get user credentials to initial SSH session
 credUser = input("Please enter username: ")
@@ -52,11 +55,14 @@ for deviceName, deviceIP in deviceList[deviceGroup].items():
         print("Configuration in Sync")
     else:
         print("Incorrect servers, updating configuration...")
+        print(ntpMatch)
+        print(checkNTP)
         ntpRemove = checkNTP.splitlines()
         for line in ntpRemove:
             print("Removing: " + line)
             net_connect.config_mode()
             net_connect.send_command("no " + line)
+
 
         ntpNew = ntpMatch.splitlines()
 
