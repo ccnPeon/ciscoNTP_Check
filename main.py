@@ -29,7 +29,7 @@ except:
 #Develop variable to check for NTP Servers
 
 ntpMatch = ''''''
-for server in ntpServerList:
+for server in sorted(ntpServerList):
     ntpMatch += "ntp server " + server + "\n"
 
 #Remove empty line from ntpMatch
