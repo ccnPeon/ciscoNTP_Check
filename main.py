@@ -40,14 +40,18 @@ credPass = getpass.getpass("Please enter password: ")
 
 
 for deviceName, deviceIP in deviceList[deviceGroup].items():
+    print("Establishing Connection...")
     net_connect = ConnectHandler(device_type='arista_eos',ip=deviceIP,username=credUser,password=credPass)
+    print("Entering priviledged exec mode...")
     net_connect.enable()
+    print("Checking NTP Servers...")
     checkNTP = net_connect.send_command("show run | section ntp server")
 
 
     if ntpMatch == checkNTP:
         print("Configuration in Sync")
     else:
+        print("Incorrect servers, updating configuration...")
         ntpRemove = checkNTP.splitlines()
         for line in ntpRemove:
             print("Removing: " + line)
