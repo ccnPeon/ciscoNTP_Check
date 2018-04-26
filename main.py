@@ -55,8 +55,6 @@ for deviceName, deviceIP in deviceList[deviceGroup].items():
         print("Configuration in Sync")
     else:
         print("Incorrect servers, updating configuration...")
-        print(ntpMatch)
-        print(checkNTP)
         ntpRemove = checkNTP.splitlines()
         for line in ntpRemove:
             print("Removing: " + line)
