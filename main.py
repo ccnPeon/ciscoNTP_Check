@@ -57,9 +57,10 @@ for deviceName, deviceIP in deviceList[deviceGroup].items():
         print("Incorrect servers, updating configuration...")
         ntpRemove = checkNTP.splitlines()
         for line in ntpRemove:
-            print("Removing: " + line)
-            net_connect.config_mode()
-            net_connect.send_command("no " + line)
+            if line not in ntpMatch:
+                print("Removing: " + line)
+                net_connect.config_mode()
+                net_connect.send_command("no " + line)
 
 
         ntpNew = ntpMatch.splitlines()

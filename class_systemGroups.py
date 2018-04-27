@@ -3,7 +3,7 @@ class systemGroups:
 
         'Switches': {
 
-            'test_switch': '%IP HERE%'
+            'test_switch': '192.168.56.101'
 
         },
 
