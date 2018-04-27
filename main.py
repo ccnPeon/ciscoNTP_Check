@@ -41,18 +41,25 @@ credUser = input("Please enter username: ")
 credPass = getpass.getpass("Please enter password: ")
 
 
-
+#Begin connection
 for deviceName, deviceIP in deviceList[deviceGroup].items():
     print("Establishing Connection...")
     net_connect = ConnectHandler(device_type='arista_eos',ip=deviceIP,username=credUser,password=credPass)
+
+    #Enter privileged Exec mode
     print("Entering priviledged exec mode...")
     net_connect.enable()
+
+    #send command
     print("Checking NTP Servers...")
     checkNTP = net_connect.send_command("show run | section ntp server")
 
 
+    #Compare strings to see if configs match.
     if ntpMatch == checkNTP:
         print("Configuration in Sync")
+
+    #If strings don't match, remove only the invalid lines.
     else:
         print("Incorrect servers, updating configuration...")
         ntpRemove = checkNTP.splitlines()
@@ -66,6 +73,12 @@ for deviceName, deviceIP in deviceList[deviceGroup].items():
         ntpNew = ntpMatch.splitlines()
 
         for line in ntpNew:
-            print("Adding: " + line)
-            net_connect.config_mode()
-            net_connect.send_command(line)
+            if line not in checkNTP:
+                print("Adding: " + line)
+                net_connect.config_mode()
+                net_connect.send_command(line)
+
+            elif line in checkNTP:
+                print("Command '" + line + "' already exists. Ignoring this line.")
+
+        print("Configuration updated.")
