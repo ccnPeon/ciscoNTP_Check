@@ -44,7 +44,7 @@ credPass = getpass.getpass("Please enter password: ")
 #Begin connection
 for deviceName, deviceIP in deviceList[deviceGroup].items():
     print("Establishing Connection...")
-    net_connect = ConnectHandler(device_type='arista_eos',ip=deviceIP,username=credUser,password=credPass)
+    net_connect = ConnectHandler(device_type='cisco_ios',ip=deviceIP,username=credUser,password=credPass)
 
     #Enter privileged Exec mode
     print("Entering priviledged exec mode...")

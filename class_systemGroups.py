@@ -3,7 +3,8 @@ class systemGroups:
 
         'Switches': {
 
-            'test_switch': '192.168.56.101'
+            'bg_2960': '172.31.2.110',
+
 
         },
 
